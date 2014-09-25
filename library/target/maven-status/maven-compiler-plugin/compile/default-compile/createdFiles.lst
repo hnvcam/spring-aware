@@ -1,0 +1,6 @@
+com/aiws/springaware/SpringAwareBundleActivator.class
+com/aiws/springaware/BundleResourcePatternResolver.class
+com/aiws/springaware/SpringAwareBundleActivator$1.class
+com/aiws/springaware/exception/InvalidBundleServiceException.class
+com/aiws/springaware/dm/ServiceExposer.class
+com/aiws/springaware/bundle/BundleService.class
