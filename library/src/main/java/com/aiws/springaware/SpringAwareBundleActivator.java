@@ -26,10 +26,15 @@ public class SpringAwareBundleActivator implements BundleActivator, Runnable {
 
     @Override
     public void start(BundleContext bundleContext) throws Exception {
-        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+        initContextClassLoader();
         SpringAwareBundleActivator.bundleContext = bundleContext;
         this.serviceExposer = new ServiceExposer(bundleContext);
         new Thread(this).run();
+    }
+
+    private void initContextClassLoader() throws ClassNotFoundException {
+        Class clazz = Class.forName("org.springframework.context.support.GenericApplicationContext");
+        Thread.currentThread().setContextClassLoader(clazz.getClassLoader());
     }
 
     @Override
@@ -40,7 +45,6 @@ public class SpringAwareBundleActivator implements BundleActivator, Runnable {
 
     @Override
     public void run() {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         URL url = SpringAwareBundleActivator.bundleContext.getBundle().getEntry("springAware-context.xml");
 
         applicationContext = new GenericApplicationContext() {
@@ -56,6 +60,7 @@ public class SpringAwareBundleActivator implements BundleActivator, Runnable {
         } catch (IOException e) {
 
         }
+        applicationContext.setClassLoader(this.getClass().getClassLoader());
         applicationContext.refresh();
 
         Map<String, BundleService> singletonBeans = applicationContext.getBeansOfType(BundleService.class);
