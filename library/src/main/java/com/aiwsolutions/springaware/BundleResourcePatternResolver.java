@@ -75,7 +75,10 @@ public class BundleResourcePatternResolver implements ResourcePatternResolver {
     }
 
     @Override
-    public Resource getResource(String location) {
+    public Resource getResource(final String location) {
+        if (location.startsWith(CLASSPATH_URL_PREFIX)) {
+            return getResource(location.substring(CLASSPATH_URL_PREFIX.length()));
+        }
         return new UrlResource(thisBundle.getEntry(location));
     }
 
