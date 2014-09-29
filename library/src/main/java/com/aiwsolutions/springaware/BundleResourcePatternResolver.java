@@ -1,17 +1,11 @@
-package com.aiws.springaware;
+package com.aiwsolutions.springaware;
 
 import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.UrlResource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.util.AntPathMatcher;
-import org.springframework.util.Assert;
 import org.springframework.util.PathMatcher;
-import org.springframework.util.ResourceUtils;
 
 import java.io.IOException;
 import java.net.URL;

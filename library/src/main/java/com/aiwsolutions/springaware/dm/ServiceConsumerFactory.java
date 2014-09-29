@@ -1,8 +1,7 @@
-package com.aiws.springaware.dm;
+package com.aiwsolutions.springaware.dm;
 
-import com.aiws.springaware.SpringAwareBundleActivator;
+import com.aiwsolutions.springaware.SpringAwareBundleActivator;
 import org.osgi.framework.ServiceReference;
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.FactoryBean;
 
 /**

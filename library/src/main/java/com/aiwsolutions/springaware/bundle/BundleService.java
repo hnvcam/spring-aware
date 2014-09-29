@@ -1,4 +1,4 @@
-package com.aiws.springaware.bundle;
+package com.aiwsolutions.springaware.bundle;
 /**
  * Created by camhoang on 9/21/14.
  *

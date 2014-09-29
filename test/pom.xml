@@ -43,7 +43,7 @@
                         <Bundle-Name>${project.name}</Bundle-Name>
                         <Bundle-Version>${project.version}</Bundle-Version>
                         <Import-Package>org.osgi.framework.*,javax.xml.*,org.xml.*,org.w3c.dom.*,org.springframework.*</Import-Package>
-                        <Bundle-Activator>com.aiws.springaware.SpringAwareBundleActivator</Bundle-Activator>
+                        <Bundle-Activator>com.aiwsolutions.springaware.SpringAwareBundleActivator</Bundle-Activator>
                         <Embed-Dependency>*;scope=!provided;type=!pom</Embed-Dependency>
                     </instructions>
                 </configuration>

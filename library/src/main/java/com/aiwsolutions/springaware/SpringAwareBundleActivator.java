@@ -1,7 +1,7 @@
-package com.aiws.springaware;
+package com.aiwsolutions.springaware;
 
-import com.aiws.springaware.bundle.BundleService;
-import com.aiws.springaware.dm.ServiceExposer;
+import com.aiwsolutions.springaware.bundle.BundleService;
+import com.aiwsolutions.springaware.dm.ServiceExposer;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;

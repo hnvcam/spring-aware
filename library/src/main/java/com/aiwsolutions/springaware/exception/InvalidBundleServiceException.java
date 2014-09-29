@@ -1,4 +1,4 @@
-package com.aiws.springaware.exception;
+package com.aiwsolutions.springaware.exception;
 
 /**
  * Created by camhoang on 9/22/14.

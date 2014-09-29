@@ -1,7 +1,7 @@
-package com.aiws.springaware.test.impl;
+package com.aiwsolutions.springaware.test.impl;
 
-import com.aiws.springaware.bundle.BundleService;
-import com.aiws.springaware.test.SampleService;
+import com.aiwsolutions.springaware.bundle.BundleService;
+import com.aiwsolutions.springaware.test.SampleService;
 import org.springframework.stereotype.Service;
 
 /**

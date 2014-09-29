@@ -1,13 +1,10 @@
-package com.aiws.springaware.dm;
+package com.aiwsolutions.springaware.dm;
 
-import com.aiws.springaware.bundle.BundleService;
-import com.aiws.springaware.exception.InvalidBundleServiceException;
+import com.aiwsolutions.springaware.bundle.BundleService;
+import com.aiwsolutions.springaware.exception.InvalidBundleServiceException;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
