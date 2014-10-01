@@ -24,17 +24,7 @@ public class ServiceExposer {
     }
 
     public void expose(BundleService bean) {
-        Class[] implementedInterfaces = bean.getClass().getInterfaces();
-        String serviceInterface = null;
-
-        for (Class inf : implementedInterfaces) {
-            if (inf.getName().equals(bean.getServiceInterface().getName()))
-                serviceInterface = inf.getName();
-        }
-        if (serviceInterface == null)
-            throw new InvalidBundleServiceException("Bean does not implement a service interface");
-
-        registerService(serviceInterface, bean, null);
+        registerService(getServiceInterface(bean, bean.getServiceInterface()), bean, null);
     }
 
     public void unregisterServices() {
@@ -43,11 +33,22 @@ public class ServiceExposer {
         }
     }
 
-    public void exposeAnnotationService(Object value) {
-        ExportService serviceDescription = value.getClass().getAnnotation(ExportService.class);
-        if (serviceDescription != null) {
-            registerService(serviceDescription.value().getName(), value, null);
+    public void exposeAnnotationService(Object bean) {
+        ExportService serviceDescription = bean.getClass().getAnnotation(ExportService.class);
+        registerService(getServiceInterface(bean, serviceDescription.value()), bean, null);
+    }
+
+    private String getServiceInterface(Object bean, Class exportedInterface) {
+        Class[] implementedInterfaces = bean.getClass().getInterfaces();
+        String serviceInterface = null;
+
+        for (Class inf : implementedInterfaces) {
+            if (inf.equals(exportedInterface))
+                serviceInterface = inf.getName();
         }
+        if (serviceInterface == null)
+            throw new InvalidBundleServiceException("Unable to export" + bean.getClass().getName() + ": Bean does not implement exported service interface.");
+        return serviceInterface;
     }
 
     private void registerService(String interfaceName, Object bean, Dictionary properties) {
