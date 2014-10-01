@@ -1,10 +1,12 @@
 package com.aiwsolutions.springaware.dm;
 
 import com.aiwsolutions.springaware.bundle.BundleService;
+import com.aiwsolutions.springaware.bundle.ExportService;
 import com.aiwsolutions.springaware.exception.InvalidBundleServiceException;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 
+import java.util.Dictionary;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -32,15 +34,26 @@ public class ServiceExposer {
         if (serviceInterface == null)
             throw new InvalidBundleServiceException("Bean does not implement a service interface");
 
-        ServiceRegistration reg = bundleContext.registerService(serviceInterface,
-                bean,
-                null);
-        serviceMap.put(bean.getClass().getName(), reg);
+        registerService(serviceInterface, bean, null);
     }
 
     public void unregisterServices() {
         for (Map.Entry<String, ServiceRegistration> entry : serviceMap.entrySet()) {
             entry.getValue().unregister();
         }
+    }
+
+    public void exposeAnnotationService(Object value) {
+        ExportService serviceDescription = value.getClass().getAnnotation(ExportService.class);
+        if (serviceDescription != null) {
+            registerService(serviceDescription.value().getName(), value, null);
+        }
+    }
+
+    private void registerService(String interfaceName, Object bean, Dictionary properties) {
+        ServiceRegistration reg = bundleContext.registerService(interfaceName,
+                bean,
+                properties);
+        serviceMap.put(bean.getClass().getName(), reg);
     }
 }

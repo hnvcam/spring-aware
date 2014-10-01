@@ -1,6 +1,7 @@
 package com.aiwsolutions.springaware;
 
 import com.aiwsolutions.springaware.bundle.BundleService;
+import com.aiwsolutions.springaware.bundle.ExportService;
 import com.aiwsolutions.springaware.dm.ServiceExposer;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -63,10 +64,16 @@ public class SpringAwareBundleActivator implements BundleActivator, Runnable {
         applicationContext.setClassLoader(this.getClass().getClassLoader());
         applicationContext.refresh();
 
-        Map<String, BundleService> singletonBeans = applicationContext.getBeansOfType(BundleService.class);
+        Map<String, BundleService> bundleServiceMap = applicationContext.getBeansOfType(BundleService.class);
 
-        for (Map.Entry<String, BundleService> entry : singletonBeans.entrySet()) {
+        for (Map.Entry<String, BundleService> entry : bundleServiceMap.entrySet()) {
             serviceExposer.expose(entry.getValue());
+        }
+
+        Map<String, Object> exportServiceMap = applicationContext.getBeansWithAnnotation(ExportService.class);
+
+        for (Map.Entry<String, Object> entry : exportServiceMap.entrySet()) {
+            serviceExposer.exposeAnnotationService(entry.getValue());
         }
     }
 
