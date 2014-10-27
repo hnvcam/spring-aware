@@ -7,4 +7,6 @@
 
     <context:annotation-config/>
     <context:component-scan base-package="com.aiwsolutions.springaware.test"/>
+
+    <import resource="imported-context.xml"/>
 </beans>

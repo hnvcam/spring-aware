@@ -5,6 +5,8 @@ import com.aiwsolutions.springaware.bundle.ExportService;
 import com.aiwsolutions.springaware.dm.ServiceExposer;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.springframework.beans.factory.xml.BeanDefinitionDocumentReader;
+import org.springframework.beans.factory.xml.DefaultBeanDefinitionDocumentReader;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.core.io.InputStreamResource;
@@ -46,7 +48,6 @@ public class SpringAwareBundleActivator implements BundleActivator, Runnable {
 
     @Override
     public void run() {
-        URL url = SpringAwareBundleActivator.bundleContext.getBundle().getEntry("springAware-context.xml");
 
         applicationContext = new GenericApplicationContext() {
             @Override
@@ -56,11 +57,7 @@ public class SpringAwareBundleActivator implements BundleActivator, Runnable {
         };
         XmlBeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(applicationContext);
         xmlReader.setValidationMode(XmlBeanDefinitionReader.VALIDATION_XSD);
-        try {
-            xmlReader.loadBeanDefinitions(new InputStreamResource(url.openStream()));
-        } catch (IOException e) {
-
-        }
+        xmlReader.loadBeanDefinitions(new BundleResource("springAware-context.xml"));
         applicationContext.setClassLoader(this.getClass().getClassLoader());
         applicationContext.refresh();
 
